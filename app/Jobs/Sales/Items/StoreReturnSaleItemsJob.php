@@ -2,6 +2,7 @@
 
 namespace App\Jobs\Sales\Items;
 
+use App\Enums\InvoiceItemStatusEnum;
 use App\Jobs\Items\AvailableQty\UpdateAvailableQtyByInvoiceItemJob;
 use App\Jobs\Items\Cost\UpdateItemCostByInvoiceItemJob;
 use App\Jobs\Items\Kit\UpdateKitByInvoiceItemsJob;
@@ -40,6 +41,7 @@ class StoreReturnSaleItemsJob implements ShouldQueue
      * @var bool
      */
     private $isDraft;
+    private ?InvoiceItemStatusEnum $invoiceItemStatusEnum;
 
     /**
      * Create a new job instance.
@@ -48,8 +50,9 @@ class StoreReturnSaleItemsJob implements ShouldQueue
      * @param Invoice $saleInvoice
      * @param $returnedItems
      * @param bool $isDraft
+     * @param InvoiceItemStatusEnum|null $invoiceItemStatusEnum
      */
-    public function __construct(Invoice $returnSaleInvoice, Invoice $saleInvoice, $returnedItems, $isDraft = false)
+    public function __construct(Invoice $returnSaleInvoice, Invoice $saleInvoice, $returnedItems, $isDraft = false,InvoiceItemStatusEnum $invoiceItemStatusEnum = null)
     {
 
         $this->returnSaleInvoice = $returnSaleInvoice;
@@ -57,6 +60,7 @@ class StoreReturnSaleItemsJob implements ShouldQueue
         $this->returnedItems = $returnedItems;
         $this->loggedUser = auth()->user();
         $this->isDraft = $isDraft;
+        $this->invoiceItemStatusEnum = $invoiceItemStatusEnum;
     }
 
     /**
@@ -100,8 +104,9 @@ class StoreReturnSaleItemsJob implements ShouldQueue
         $data['creator_id'] = $this->returnSaleInvoice->creator_id;
         $data['item_id'] = $invoiceItem->item_id;
         $data['user_id'] = $this->returnSaleInvoice->user_id;
-        $data['invoice_type'] = 'sale';
+        $data['invoice_type'] = $this->returnSaleInvoice->invoice_type;
         $data['is_kit'] = true;
+        $data['status'] = $this->invoiceItemStatusEnum;
         $createdInvoiceKitItem = $this->returnSaleInvoice->items()->create($data);
         $this->storeKitItems($kitRequestCollection, $createdInvoiceKitItem, $invoiceItem, $qty);
         dispatch_sync(new UpdateKitByInvoiceItemsJob($createdInvoiceKitItem));
@@ -189,7 +194,7 @@ class StoreReturnSaleItemsJob implements ShouldQueue
             dispatch_sync(new UpdateAvailableQtyByInvoiceItemJob($createdInvoiceItem));
             /**
              * ==========================================================
-             * we neeed for available qty and cost before new invoice item
+             * we need for available qty and cost before new invoice item
              * ==========================================================
              */
             dispatch_sync(new UpdateItemCostByInvoiceItemJob($createdInvoiceItem, $availableQtyBeforeInvoiceItem, $costBeforeInvoiceItem));
@@ -234,7 +239,7 @@ class StoreReturnSaleItemsJob implements ShouldQueue
         $data['parent_kit_id'] = $isBelongToKit ? (float)$requestItemCollection->get('kit_id') : 0;
         $data['belong_to_kit'] = $isBelongToKit;
         $data['price'] = $salesPrice;
-        $data['invoice_type'] = 'return_sale';
+        $data['invoice_type'] = $this->returnSaleInvoice->invoice_type;
         $data['user_id'] = $this->returnSaleInvoice->user_id;
         $data['qty'] = $returnedQty;
         $data['discount'] = $discount;
@@ -246,6 +251,7 @@ class StoreReturnSaleItemsJob implements ShouldQueue
         $data['creator_id'] = $this->loggedUser->id;
         $data['item_id'] = $invoiceItem->item_id;
         $data['is_draft'] = $this->isDraft;
+        $data['status'] = $this->invoiceItemStatusEnum;
         return $this->returnSaleInvoice->items()->create($data);
     }
 

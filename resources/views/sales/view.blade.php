@@ -43,6 +43,14 @@
                     @endif
 
                 @endcan
+                @can("edit sale")
+                    @if($invoice->is_deleted==0)
+                        <a href="{{route('sales.add_warranty_tracing',$invoice->id)}}" class="btn btn-info">
+                            تتبع الضمان
+                        </a>
+                    @endif
+
+                @endcan
             @endif
         @endif
     @endif

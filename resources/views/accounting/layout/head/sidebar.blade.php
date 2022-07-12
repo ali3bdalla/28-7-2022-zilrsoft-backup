@@ -144,7 +144,10 @@
 
 
 
-
+                            <li>
+                                <a href="{{route('warranty_tracings.index')}}"><i class="fa fa-sun"></i>
+                                    تتبع الضمان
+                                </a></li>
                         <li>
                             <a href="{{route('sales.drafts.create.service')}}"><i class="fa fa-sun"></i>
                                 {{ __('sidebar.services_quotations') }}

@@ -14,6 +14,7 @@ use App\Models\User;
 use App\Repository\AccountRepositoryContract;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -26,15 +27,32 @@ class SaleController extends Controller
         $this->accountRepositoryContract = $accountRepositoryContract;
     }
 
-    public function uploadToQuickbooks(Invoice $sale)
+    public function addWarrantyTracing(Invoice $sale)
+    {
+        $invoice = $sale->load("department", "branch", "user", "manager");
+        $items = [];
+        $data_source_items = $invoice->items()->where('parent_kit_id', 0)->with('item')->whereHas("item",function($subQuery){
+            return $subQuery->where("is_service",false)->where('is_expense',false);
+        })->get();
+        foreach ($data_source_items as $item) {
+            if ($item->item->is_need_serial) {
+                $item['serials'] = $item->item->serials()->sale($invoice->id)->get();
+            }
+            if ($item->item->is_kit) {
+                $item['items'] = $invoice->items()->kitItems($item->id)->with('item')->get();
+            }
+            $items[] = $item;
+        }
+        $expenses = [];
+        $gateways = [];
+        return view('sales.create_warranty_tracing', compact('invoice', 'items', 'gateways', 'expenses'));
+    }
+    public function uploadToQuickbooks(Invoice $sale): RedirectResponse
     {
         if ($sale->quickbook_id || $sale->is_draft) {
             return back();
         }
-        if ($sale->invoice_type == 'sale')
-            dispatch_sync(new SalesQuickBooksSyncJob($sale, Auth::user()));
-        elseif ($sale->invoice_type == 'return_sale')
-            dispatch_sync(new RefundSalesQuickBooksSyncJob($sale, Auth::user()));
+        if ($sale->invoice_type == 'sale') dispatch_sync(new SalesQuickBooksSyncJob($sale, Auth::user())); elseif ($sale->invoice_type == 'return_sale') dispatch_sync(new RefundSalesQuickBooksSyncJob($sale, Auth::user()));
         return back();
     }
 
@@ -42,6 +60,7 @@ class SaleController extends Controller
     {
         return view('sales.report');
     }
+
     /**
      * Display a listing of the resource.
      * @return Application|Factory|View

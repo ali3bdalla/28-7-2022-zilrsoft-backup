@@ -288,4 +288,17 @@ class FetchSalesRequest extends FormRequest
         return new LengthAwarePaginator($data,$totalItems, $perPage, $page);
 
     }
+
+    public function getWarrantyTracingData()
+    {
+        $perPage = (int)$this->input('itemsPerPage',50);
+        $query =  Invoice::where('invoice_type',InvoiceTypeEnum::warranty_tracing())->with("user","creator");
+        if($this->filled('invoice_number')) {
+            $query = $query->where('invoice_number',$this->input("invoice_number"));
+        }
+        if ($this->has('orderBy') && $this->filled('orderBy') && $this->has('orderType') && $this->filled('orderType')) {
+            $query = $query->orderBy($this->orderBy, $this->orderType);
+        }
+        return $query->paginate($perPage);
+    }
 }

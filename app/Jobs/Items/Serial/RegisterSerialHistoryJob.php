@@ -43,7 +43,6 @@ class RegisterSerialHistoryJob implements ShouldQueue
             'user_id' => $this->invoice->user_id,
             'creator_id' => $this->invoice->creator_id,
             'event' => $this->status,
- 
         ]);
     }
 }

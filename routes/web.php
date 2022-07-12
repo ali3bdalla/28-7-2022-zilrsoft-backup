@@ -12,6 +12,7 @@ use App\Http\Controllers\App\CurrentWeb\ItemController;
 use App\Http\Controllers\App\CurrentWeb\PurchaseController;
 use App\Http\Controllers\App\CurrentWeb\SaleController;
 use App\Http\Controllers\App\CurrentWeb\VoucherController;
+use App\Http\Controllers\App\CurrentWeb\WarrantyTracingController;
 use App\Http\Controllers\App\Web\FilterController as WebFilterController;
 use App\Http\Controllers\App\Web\FilterValuesController as WebFilterValuesController;
 use App\Http\Controllers\App\Web\IdentitiesController as WebIdentitiesController;
@@ -32,139 +33,92 @@ Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard.index
 Route::post('dashboard', [HomeController::class, 'changeSettings'])->name('dashboard.change_settings');
 Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
 Route::resource('sales', SaleController::class);
+Route::resource('warranty_tracings', WarrantyTracingController::class);
 Route::get('invoices/reports', [SaleController::class, 'report']);
-Route::prefix('sales')->name('sales.')->group(
-    function () {
-        Route::get('/{sale}/upload_to_quick_books', [SaleController::class, 'uploadToQuickbooks'])->name('upload_to_quick_books');
-        Route::prefix('drafts')->name('drafts.')->group(
-            function () {
-                Route::get('/index', [SaleController::class, 'drafts'])->name('index');
-                Route::get('/create', [SaleController::class, 'createDraft'])->name('create');
-                Route::get('/create_service', [SaleController::class, 'createServiceDraft'])->name('create.service');
-                Route::get('/{sale}/clone', [SaleController::class, 'clone'])->name('clone');
-                Route::get('/{sale}/to_invoice', [SaleController::class, 'toInvoice'])->name('to_invoice');
-            }
-        );
-    }
-);
+Route::prefix('sales')->name('sales.')->group(function () {
+    Route::get('/{sale}/add_warranty_tracing', [SaleController::class, 'addWarrantyTracing'])->name('add_warranty_tracing');
+    Route::get('/{sale}/upload_to_quick_books', [SaleController::class, 'uploadToQuickbooks'])->name('upload_to_quick_books');
+    Route::prefix('drafts')->name('drafts.')->group(function () {
+        Route::get('/index', [SaleController::class, 'drafts'])->name('index');
+        Route::get('/create', [SaleController::class, 'createDraft'])->name('create');
+        Route::get('/create_service', [SaleController::class, 'createServiceDraft'])->name('create.service');
+        Route::get('/{sale}/clone', [SaleController::class, 'clone'])->name('clone');
+        Route::get('/{sale}/to_invoice', [SaleController::class, 'toInvoice'])->name('to_invoice');
+    });
+});
 Route::resource('accounts', AccountController::class);
 Route::resource('delivery_men', DeliveryManController::class);
-Route::prefix('accounts')->name('accounts.')->group(
-    function () {
-        Route::prefix('reports')->name('reports.')->group(
-            function () {
-                Route::get('/index', [AccountController::class, 'reports'])->name('index');
-            }
-        );
-        Route::prefix('{account}')->name('show.')->group(
-            function () {
-                Route::get('/stock/{item}', [AccountController::class, 'showItem'])->name('item');
-                Route::get('/identity/{identity}', [AccountController::class, 'showIdentity'])->name('identity');
-            }
-        );
-    }
-);
+Route::prefix('accounts')->name('accounts.')->group(function () {
+    Route::prefix('reports')->name('reports.')->group(function () {
+        Route::get('/index', [AccountController::class, 'reports'])->name('index');
+    });
+    Route::prefix('{account}')->name('show.')->group(function () {
+        Route::get('/stock/{item}', [AccountController::class, 'showItem'])->name('item');
+        Route::get('/identity/{identity}', [AccountController::class, 'showIdentity'])->name('identity');
+    });
+});
 Route::resource('vouchers', VoucherController::class);
-Route::prefix('vouchers/manual')->name('vouchers.')->group(
-    function () {
-        Route::get('/create-supplier', 'VoucherController@createSupplierVoucher')->name('create.supplier');
-    }
-);
+Route::prefix('vouchers/manual')->name('vouchers.')->group(function () {
+    Route::get('/create-supplier', 'VoucherController@createSupplierVoucher')->name('create.supplier');
+});
 Route::resource('entities', EntityController::class);
-Route::prefix('entities')->name('entities.')->group(
-    function () {
-        Route::get('user/{account}/{user}', [EntityController::class, 'showUserEntities'])->name('user');
-    }
-);
-Route::prefix('financial_statements')->name('financial_statements.')->group(
-    function () {
-        Route::get('/', [FinancialStatementController::class, 'index'])->name('index');
-        Route::get('trial_balance', [FinancialStatementController::class, 'trailBalance'])->name('trial_balance');
-    }
-);
+Route::prefix('entities')->name('entities.')->group(function () {
+    Route::get('user/{account}/{user}', [EntityController::class, 'showUserEntities'])->name('user');
+});
+Route::prefix('financial_statements')->name('financial_statements.')->group(function () {
+    Route::get('/', [FinancialStatementController::class, 'index'])->name('index');
+    Route::get('trial_balance', [FinancialStatementController::class, 'trailBalance'])->name('trial_balance');
+});
 Route::resource('items', ItemController::class);
-Route::prefix('items/{item}')->name('items.')->group(
-    function () {
-        Route::get('/transactions', [ItemController::class, 'transactions'])->name('transactions');
-        Route::get('/view_serials', [ItemController::class, 'serials'])->name('serials');
-        Route::get('/clone', [ItemController::class, 'clone'])->name('clone');
-    }
-);
+Route::prefix('items/{item}')->name('items.')->group(function () {
+    Route::get('/transactions', [ItemController::class, 'transactions'])->name('transactions');
+    Route::get('/view_serials', [ItemController::class, 'serials'])->name('serials');
+    Route::get('/clone', [ItemController::class, 'clone'])->name('clone');
+});
 Route::resource('purchases', PurchaseController::class);
-Route::prefix('purchases')->name('purchases.')->group(
-    function () {
-        Route::get('view/drafts', [PurchaseController::class, 'drafts'])->name('drafts');
-    }
-);
+Route::prefix('purchases')->name('purchases.')->group(function () {
+    Route::get('view/drafts', [PurchaseController::class, 'drafts'])->name('drafts');
+});
 Route::resource('entities', EntityController::class);
-Route::prefix('inventory')->name('inventory.')->group(
-    function () {
-        Route::get('/', [InventoryController::class, 'index'])->name('index');
-        Route::get('/create', [InventoryController::class, 'create'])->name('create');
-        Route::prefix('adjustments')->name('adjustments.')->group(function () {
-            Route::get('/', [InventoryController::class, 'adjustements'])->name('index');
-            Route::get('/create', [InventoryController::class, 'createAdjustement'])->name('create');
+Route::prefix('inventory')->name('inventory.')->group(function () {
+    Route::get('/', [InventoryController::class, 'index'])->name('index');
+    Route::get('/create', [InventoryController::class, 'create'])->name('create');
+    Route::prefix('adjustments')->name('adjustments.')->group(function () {
+        Route::get('/', [InventoryController::class, 'adjustements'])->name('index');
+        Route::get('/create', [InventoryController::class, 'createAdjustement'])->name('create');
+    });
+});
+Route::prefix('daily')->name('daily.')->group(function () {
+    Route::get('/', [DailyController::class, 'begning'])->name('index');
+    Route::prefix('reseller')->name('reseller.')->group(function () {
+        Route::prefix('closing_accounts')->name('closing_accounts.')->group(function () {
+            Route::get('/', [DailyController::class, 'resellerClosingAccountsIndex'])->name('index');
+            Route::get('/create', [DailyController::class, 'createResellerClosingAccount'])->name('create');
         });
-    }
-);
-Route::prefix('daily')->name('daily.')->group(
-    function () {
-        Route::get('/', [DailyController::class, 'begning'])->name('index');
-        Route::prefix('reseller')->name('reseller.')->group(
-            function () {
-                Route::prefix('closing_accounts')->name('closing_accounts.')->group(
-                    function () {
-                        Route::get('/', [DailyController::class, 'resellerClosingAccountsIndex'])->name('index');
-                        Route::get('/create', [DailyController::class, 'createResellerClosingAccount'])->name('create');
-                    }
-                );
-                Route::prefix('accounts_transactions')->name('accounts_transactions.')->group(
-                    function () {
-                        Route::get('/', [DailyController::class, 'resellerAccountsTransactionsIndex'])->name('index');
-                        Route::get('/create', [DailyController::class, 'createResellerAccountTransaction'])->name('create');
-                    }
-                );
-            }
-        );
-    }
-);
-Route::prefix('filters')->name('filter')->group(
-    function () {
-        Route::get('/', [FilterController::class, 'index'])->name('index');
-        Route::get('/create', [FilterController::class, 'create'])->name('create');
-        Route::get('/{filter}', [FilterController::class, 'show'])->name('show');
-        Route::get('/{filter}/edit', [FilterController::class, 'edit'])->name('edit');
-    }
-);
-Route::prefix('/accounting')->name('accounting.')->group(
-    function () {
-        Route::prefix('/datatable')->group(
-            function () {
-                Route::get('vouchers', [VoucherController::class, 'datatable'])->name('vouchers.datatable');
-                Route::get('filters', [WebFilterController::class, 'datatable'])->name('filters.datatable');
-                Route::get('{filter}/filter_values', [WebFilterValuesController::class, 'datatable'])->name('filter.values.datatable');
-                Route::get('identities', [WebIdentitiesController::class, 'datatable'])->name('identities.datatable');
-                Route::get('managers', [WebManagerController::class, 'datatable'])->name('managers.datatable');
-                Route::get('beginning_inventories', [WebInventoryController::class, 'beginning_datatable'])->name('beginning.datatable');
-            }
-        );
-    }
-);
-Route::middleware('lang:ar')
-    ->prefix('accounting')
-    ->namespace('\\App\\Http\\Controllers\\App\\Web')
-    ->name('accounting.')
-    ->group(function () {
-        Route::resources([
-            'items' => 'ItemController',
-            'kits' => 'KitController',
-            'warranty_subscriptions' => 'WarrantySubscriptionsController',
-            'categories' => 'CategoryController',
-            'filters' => 'FilterController',
-            'filter_values' => 'FilterValuesController',
-            'managers' => 'ManagerController',
-            'identities' => 'IdentitiesController',
-        ]);
+        Route::prefix('accounts_transactions')->name('accounts_transactions.')->group(function () {
+            Route::get('/', [DailyController::class, 'resellerAccountsTransactionsIndex'])->name('index');
+            Route::get('/create', [DailyController::class, 'createResellerAccountTransaction'])->name('create');
+        });
+    });
+});
+Route::prefix('filters')->name('filter')->group(function () {
+    Route::get('/', [FilterController::class, 'index'])->name('index');
+    Route::get('/create', [FilterController::class, 'create'])->name('create');
+    Route::get('/{filter}', [FilterController::class, 'show'])->name('show');
+    Route::get('/{filter}/edit', [FilterController::class, 'edit'])->name('edit');
+});
+Route::prefix('/accounting')->name('accounting.')->group(function () {
+    Route::prefix('/datatable')->group(function () {
+        Route::get('vouchers', [VoucherController::class, 'datatable'])->name('vouchers.datatable');
+        Route::get('filters', [WebFilterController::class, 'datatable'])->name('filters.datatable');
+        Route::get('{filter}/filter_values', [WebFilterValuesController::class, 'datatable'])->name('filter.values.datatable');
+        Route::get('identities', [WebIdentitiesController::class, 'datatable'])->name('identities.datatable');
+        Route::get('managers', [WebManagerController::class, 'datatable'])->name('managers.datatable');
+        Route::get('beginning_inventories', [WebInventoryController::class, 'beginning_datatable'])->name('beginning.datatable');
+    });
+});
+Route::middleware('lang:ar')->prefix('accounting')->namespace('\\App\\Http\\Controllers\\App\\Web')->name('accounting.')->group(function () {
+        Route::resources(['items' => 'ItemController', 'kits' => 'KitController', 'warranty_subscriptions' => 'WarrantySubscriptionsController', 'categories' => 'CategoryController', 'filters' => 'FilterController', 'filter_values' => 'FilterValuesController', 'managers' => 'ManagerController', 'identities' => 'IdentitiesController',]);
         Route::name('items.')->prefix('items')->group(function () {
             Route::get('view/barcode', 'ItemController@barcode')->name('barcode');
             Route::post('{item}/attachments', 'ItemController@upload_attachments')->name('upload_attachments');
@@ -206,8 +160,7 @@ Route::middleware('lang:ar')
         Route::get('roles_permissions', 'ProviderController@roles_permissions');
 
         Route::prefix('gateways')->name('gateways.')->group(function () {
-            Route::get('get_gateways_like_to_manager_name', 'ProviderController@get_gateways_like_to_manager_name')
-                ->name('load_manager_gateway');
+            Route::get('get_gateways_like_to_manager_name', 'ProviderController@get_gateways_like_to_manager_name')->name('load_manager_gateway');
         });
 
         Route::prefix('reseller_daily')->name('reseller_daily.')->group(function () {
@@ -232,17 +185,15 @@ Route::middleware('lang:ar')
     });
 
 Route::group(['as' => 'store.', 'prefix' => 'store'], function () {
-    Route::prefix('orders')->name('orders.')->group(
-        function () {
-            Route::get('/', [OrderController::class, 'index'])->name('index');
-            Route::get('{order}', [OrderController::class, 'show'])->name('show');
-            Route::get('{order}/accept-order-as-manager', [OrderController::class, 'acceptOrderAsManager'])->name('accept-order-as-manager');
-            Route::get('{order}/view-payment', [OrderController::class, 'viewPayment'])->name('view-payment');
-            Route::get('{order}/view-shipping', [OrderController::class, 'viewShipping'])->name('view-shipping');
-            Route::get('{order}/activities', [OrderController::class, 'activites'])->name('activites');
-            Route::get('{order}/customer-data', [OrderController::class, 'customerData'])->name('customer-data');
-        }
-    );
+    Route::prefix('orders')->name('orders.')->group(function () {
+        Route::get('/', [OrderController::class, 'index'])->name('index');
+        Route::get('{order}', [OrderController::class, 'show'])->name('show');
+        Route::get('{order}/accept-order-as-manager', [OrderController::class, 'acceptOrderAsManager'])->name('accept-order-as-manager');
+        Route::get('{order}/view-payment', [OrderController::class, 'viewPayment'])->name('view-payment');
+        Route::get('{order}/view-shipping', [OrderController::class, 'viewShipping'])->name('view-shipping');
+        Route::get('{order}/activities', [OrderController::class, 'activites'])->name('activites');
+        Route::get('{order}/customer-data', [OrderController::class, 'customerData'])->name('customer-data');
+    });
     Route::resource('shipping', ShippingController::class);
     Route::group(['as' => 'shipping.', 'prefix' => 'shipping'], function () {
         Route::post('sign-transactions-to-delivery-man', [ShippingController::class, 'signTransactionsToDeliveryMan'])->name('sign-transactions-to-delivery-man');

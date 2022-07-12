@@ -36,6 +36,8 @@ import AccountingSalesDatatableComponent from './components/sales/salesDatatable
 import AccountingInvoicesReportComponent from './components/sales/invoicesReportComponent'
 import AccountingSalesCreateComponent from './components/sales/salesCreateComponent'
 import AccountingSalesReturnComponent from './components/sales/salesReturnComponent'
+import AccountingWarrantyTracingComponent from './components/sales/SaleWarrantyTracing'
+import AccountingWarrantyTracingsDatatableComponent from './components/sales/WarrantyTracingsDatatable'
 import AccountingKitsDatatableComponent from './components/items/kitsDatatableComponent'
 import AccountingKitsCreateComponent from './components/items/kitsCreateComponent'
 import AccountingPrintReceiptLayoutComponent from './components/layout/printerReceiptLayoutComponent'
@@ -228,6 +230,14 @@ Vue.component(
 Vue.component(
   'accounting-sales-return-component',
   AccountingSalesReturnComponent
+)
+Vue.component(
+  'accounting-warranty-tracing-component',
+    AccountingWarrantyTracingComponent
+)
+Vue.component(
+    'accounting-warranty-tracings-datatable-component',
+    AccountingWarrantyTracingsDatatableComponent
 )
 Vue.component(
   'accounting-kits-datatable-component',

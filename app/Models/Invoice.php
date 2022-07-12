@@ -4,9 +4,11 @@ namespace App\Models;
 
 use App\Dto\InvoiceItemDto;
 use App\Enums\AccountingTypeEnum;
+use App\Enums\InvoiceItemStatusEnum;
 use App\Enums\InvoiceTypeEnum;
 use App\Models\Traits\AnnuallyScoped;
 use App\Scopes\DraftScope;
+use App\Traits\OrganizationTarget;
 use App\ValueObjects\MoneyValueObject;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -20,7 +22,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode as FacadesQrCode;
  * @property mixed organization_id
  * @property mixed creator_id
  * @property mixed user_id
- * @property AccountingTypeEnum invoice_type
+ * @property InvoiceTypeEnum invoice_type
  * @property mixed net
  * @property mixed tax
  * @property mixed id
@@ -44,37 +46,35 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode as FacadesQrCode;
  * @property string user_alice_name
  * @property int vendor_invoice_id
  * @property mixed $department
+ * @property mixed $quickbook_id
  *
  * @method static create(array $array)
  */
 class Invoice extends BaseModel
 {
     use SoftDeletes;
-    use \App\Traits\OrganizationTarget;
+    use OrganizationTarget;
+
     protected $guarded = [];
 
-    protected $casts = [
-        'printable_price' => 'boolean',
-        'is_draft_converted' => 'boolean',
+    protected $appends = ['status_label'];
+    protected $casts = ['printable_price' => 'boolean', 'is_draft_converted' => 'boolean',
         'invoice_type' => InvoiceTypeEnum::class . ':nullable',
-        'net' => MoneyValueObject::class,
-        'total' => MoneyValueObject::class,
-        'subtotal' => MoneyValueObject::class,
-        'tax' => MoneyValueObject::class,
-        'discount' => MoneyValueObject::class,
-        'vts' => MoneyValueObject::class,
-        'vtp' => MoneyValueObject::class,
-    ];
+        'status' => InvoiceItemStatusEnum::class . ':nullable',
+        'net' => MoneyValueObject::class, 'total' => MoneyValueObject::class, 'subtotal' => MoneyValueObject::class, 'tax' => MoneyValueObject::class, 'discount' => MoneyValueObject::class, 'vts' => MoneyValueObject::class, 'vtp' => MoneyValueObject::class,];
 
     public static function getInvoiceByPublicIdHash($hash): Invoice
     {
         $publicIdElements = Invoice::getDecryptedPublicIdElements($hash);
-        return Invoice::where([
-            'created_at' => $publicIdElements->get('created_at', null),
-            'id' => (int)$publicIdElements->get('id', 0),
-        ])->firstOrFail();
+        return Invoice::where(['created_at' => $publicIdElements->get('created_at', null), 'id' => (int)$publicIdElements->get('id', 0),])->firstOrFail();
     }
 
+    public function getStatusLabelAttribute()
+    {
+        if($this->status)
+            return $this->status->label;
+        return "";
+    }
     public static function getDecryptedPublicIdElements($hash): Collection
     {
         $decryptedText = base64_decode($hash);
@@ -170,6 +170,11 @@ class Invoice extends BaseModel
         return __('pages/invoice.receiver');
     }
 
+    public function warrantyTracingHistories(): HasMany
+    {
+        return $this->hasMany(WarrantyTracingHistory::class, 'warranty_tracing_id')->orderBy("id");
+    }
+
     public function getBackgroundAssetAttribute(): string
     {
         if ($this->is_draft) {
@@ -210,21 +215,13 @@ class Invoice extends BaseModel
     {
         return $items->each(function (InvoiceItemDto $invoiceItemDto) {
             $invoiceItemDto->setInvoice($this);
-            $invoiceItem = InvoiceItems::factory()
-                ->setDto($invoiceItemDto)
-                ->create();
+            $invoiceItem = InvoiceItems::factory()->setDto($invoiceItemDto)->create();
             $net = (float)$this->net + (float)$invoiceItem->net;
             $total = (float)$this->total + (float)$invoiceItem->total;
             $tax = (float)$this->tax + (float)$invoiceItem->tax;
             $discount = $this->discount + (float)$invoiceItem->discount;
             $subtotal = $this->subtotal + (float)$invoiceItem->subtotal;
-            $this->update([
-                'net' => $net,
-                'total' => $total,
-                'subtotal' => $subtotal,
-                'discount' => $discount,
-                'tax' => $tax,
-            ]);
+            $this->update(['net' => $net, 'total' => $total, 'subtotal' => $subtotal, 'discount' => $discount, 'tax' => $tax,]);
 
             return $invoiceItem;
         });
@@ -233,13 +230,7 @@ class Invoice extends BaseModel
     public function tlvQrCode()
     {
         $tlv = '';
-        foreach ([
-            1 => "{$this->organization->locale_title}",
-            2 => "{$this->organization->vat}",
-            3 => "{$this->created_at}",
-            4 => "{$this->net}",
-            5 => "{$this->tax}",
-        ] as $tag => $value) {
+        foreach ([1 => "{$this->organization->locale_title}", 2 => "{$this->organization->vat}", 3 => "{$this->created_at}", 4 => "{$this->net}", 5 => "{$this->tax}",] as $tag => $value) {
             $tlv .= pack('H*', sprintf('%02X', $tag)) . pack('H*', sprintf('%02X', strlen($value))) . $value;
         }
 
@@ -262,10 +253,7 @@ class Invoice extends BaseModel
 
     public function printedItems()
     {
-        return $this->items()->where([
-            ['belong_to_kit', false],
-            ['show_price_in_print_mode', true],
-        ])->whereHas('item')->get();
+        return $this->items()->where([['belong_to_kit', false], ['show_price_in_print_mode', true],])->whereHas('item')->get();
     }
 
     public function items(): HasMany
@@ -275,9 +263,6 @@ class Invoice extends BaseModel
 
     public function printedItemsQuantity(): float
     {
-        return $this->items()->where([
-            ['belong_to_kit', false],
-            ['show_price_in_print_mode', true],
-        ])->whereHas('item')->sum('qty');
+        return $this->items()->where([['belong_to_kit', false], ['show_price_in_print_mode', true],])->whereHas('item')->sum('qty');
     }
 }
