@@ -109,7 +109,6 @@ class UpdateItemSerialStatusByInvoiceItemJob implements ShouldQueue
                     ],
                 ])->first();
                 $dbSerial->update([
-                    'status' => 'return_sale',
                     'warranty_tracing_id' => $this->invoiceItem->invoice_id,
                 ]);
                 if (!$this->isDraft)
