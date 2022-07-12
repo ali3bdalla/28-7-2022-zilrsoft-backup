@@ -6,17 +6,13 @@ use App\Enums\InvoiceItemStatusEnum;
 use App\Enums\InvoiceTypeEnum;
 use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
 use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;
-use App\Jobs\QuickBooks\RefundSalesQuickBooksSyncJob;
-use App\Jobs\Sales\Accounting\StoreReturnSaleTransactionsJob;
 use App\Jobs\Sales\Items\StoreReturnSaleItemsJob;
-use App\Jobs\Sales\Payment\StoreReturnSalePaymentsJob;
 use App\Models\Invoice;
 use App\Models\InvoiceItems;
 use App\Notifications\WarrantyTracing\WarrantyTracingUpdateNotification;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Throwable;
@@ -40,7 +36,13 @@ class StoreWarrantyTracingRequest extends FormRequest
      */
     public function rules(): array
     {
-        return ['items' => 'required|array', 'items.*.id' => 'integer|required|organization_exists:App\Models\InvoiceItems,id', 'items.*.returned_qty' => 'required', 'items.*.serials' => 'nullable|array', "methods" => 'nullable|array', 'methods.*.id' => 'integer|required|organization_exists:App\Models\Account,id',];
+        return [
+            'items' => 'required|array',
+            'items.*.id' => 'integer|required|organization_exists:App\Models\InvoiceItems,id', 'items.*.returned_qty' => 'required',
+            'items.*.serials' => 'nullable|array',
+            "methods" => 'nullable|array',
+            'methods.*.id' => 'integer|required|organization_exists:App\Models\Account,id',
+        ];
     }
 
     /**
@@ -55,18 +57,29 @@ class StoreWarrantyTracingRequest extends FormRequest
             $returnedItems = $this->getReturnedItems();
             $this->validateItems($returnedItems, $saleInvoice);
             $authUser = auth()->user();
-            $invoice = Invoice::create(['invoice_type' => InvoiceTypeEnum::warranty_tracing(),'status' => $tracingStatus, 'notes' => $this->has('notes') ? $this->input('notes') : "", 'creator_id' => $authUser->id, 'organization_id' => $saleInvoice->organization_id, 'branch_id' => $saleInvoice->branch_id, 'department_id' => $saleInvoice->department_id, 'parent_id' => $saleInvoice->id, 'user_id' => $saleInvoice->user_id, 'managed_by_id' => $saleInvoice->managed_by_id, "user_alice_name" => $saleInvoice->user_alice_name]);
+            $invoice = Invoice::create([
+                'invoice_type' => InvoiceTypeEnum::warranty_tracing(),
+                'status' => $tracingStatus,
+                'notes' => $this->has('notes') ? $this->input('notes') : "",
+                'creator_id' => $authUser->id,
+                "contact_phone_number" => $saleInvoice->contact_phone_number,
+                'organization_id' => $saleInvoice->organization_id,
+                'branch_id' => $saleInvoice->branch_id,
+                'department_id' => $saleInvoice->department_id,
+                'parent_id' => $saleInvoice->id,
+                'user_id' => $saleInvoice->user_id,
+                'managed_by_id' => $saleInvoice->managed_by_id,
+                "user_alice_name" => $saleInvoice->user_alice_name
+            ]);
             dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'WT-'));
-            dispatch_sync(new StoreReturnSaleItemsJob($invoice, $saleInvoice, $returnedItems,false,$tracingStatus));
+            dispatch_sync(new StoreReturnSaleItemsJob($invoice, $saleInvoice, $returnedItems, false, $tracingStatus));
             dispatch_sync(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
             $invoice->warrantyTracingHistories()->create([
-               'creator_id'  => $authUser->id,
+                'creator_id'  => $authUser->id,
                 'status' => $tracingStatus
             ]);
             DB::commit();
-            if(!$saleInvoice->user->is_system_user) {
-                $saleInvoice->user->notify(new WarrantyTracingUpdateNotification($invoice,$tracingStatus));
-            }
+            $saleInvoice->user->notify(new WarrantyTracingUpdateNotification($invoice, $tracingStatus));
             return $invoice;
         } catch (QueryException $queryException) {
             DB::rollBack();

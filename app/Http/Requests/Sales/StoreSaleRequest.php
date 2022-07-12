@@ -24,6 +24,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Throwable;
 
@@ -50,6 +51,10 @@ class StoreSaleRequest extends FormRequest
             'items.*.items.*.qty' => 'required|quantity',
             'client_id' => 'required|integer|exists:users,id',
             'salesman_id' => 'required|integer|exists:managers,id',
+            "contact_phone_number" => [Rule::requiredIf(function () {
+                $user = User::find($this->input("client_id"));
+                return $user->is_system_user || $user->mobile == null;
+            }), "nullable", "string", "min:8"],
             'methods' => 'array',
             'methods.*.id' => 'required|integer|exists:accounts,id',
             'methods.*.amount' => 'required|numeric',
@@ -100,6 +105,7 @@ class StoreSaleRequest extends FormRequest
             }
             $invoice = Invoice::create(
                 [
+                    "contact_phone_number" => $this->input("contact_phone_number"),
                     'invoice_type' => 'sale',
                     'notes' => $this->has('notes') ? $this->input('notes') : '',
                     'creator_id' => $authUser->id,
@@ -128,7 +134,7 @@ class StoreSaleRequest extends FormRequest
             DB::commit();
             dispatch(new SalesQuickBooksSyncJob($invoice, Auth::user()));
             return $invoice;
-        } catch (QueryException|ValidationException|Exception $exception) {
+        } catch (QueryException | ValidationException | Exception $exception) {
             DB::rollBack();
             throw $exception;
         }

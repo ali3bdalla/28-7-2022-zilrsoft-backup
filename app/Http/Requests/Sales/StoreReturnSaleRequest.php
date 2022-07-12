@@ -61,6 +61,7 @@ class StoreReturnSaleRequest extends FormRequest
             $authUser = auth()->user();
             $invoice = Invoice::create(
                 [
+                    "contact_phone_number" => $saleInvoice->contact_phone_number,
                     'invoice_type' => 'return_sale',
                     'notes' => $this->has('notes') ? $this->input('notes') : "",
                     'creator_id' => $authUser->id,

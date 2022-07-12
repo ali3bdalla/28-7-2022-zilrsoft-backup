@@ -2,25 +2,28 @@
 
 namespace App\Notifications\WarrantyTracing;
 
+use App\Channels\WhatsappMessageChannel;
+use App\Channels\WhatsappMessageNotificationContract;
 use App\Enums\InvoiceItemStatusEnum;
 use App\Models\Invoice;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class WarrantyTracingUpdateNotification extends Notification
+class WarrantyTracingUpdateNotification extends Notification implements WhatsappMessageNotificationContract, ShouldQueue
 {
     use Queueable;
-
+    private Invoice $invoice;
+    private InvoiceItemStatusEnum $invoiceItemStatusEnum;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Invoice $invoice,InvoiceItemStatusEnum $invoiceItemStatusEnum)
+    public function __construct(Invoice $invoice, InvoiceItemStatusEnum $invoiceItemStatusEnum)
     {
-        //
+        $this->invoice = $invoice;
+        $this->invoiceItemStatusEnum = $invoiceItemStatusEnum;
     }
 
     /**
@@ -31,33 +34,17 @@ class WarrantyTracingUpdateNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        if ($notifiable->mobile || !$this->invoice->contact_phone_number)
+            return [WhatsappMessageChannel::class];
+        return [];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
+    public function getWhatsappNumber($notification)
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        return $notification->user->mobile;
     }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
+    public function toWhatsappMessage($notifiable): String
     {
-        return [
-            //
-        ];
+        return "تم تحديث حالة سند تتبع الضمان رقم {$this->invoice->id} الي : {$this->invoiceItemStatusEnum->label}";
     }
 }
