@@ -3,13 +3,12 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['middleware' => 'guest:manager,dashboard'],function(){
+Route::group(['middleware' => 'guest:manager,dashboard'], function () {
     Auth::routes([
         'register' => false, // Registration Routes...
         'reset' => false, // Password Reset Routes...
         'verify' => false, // Email Verification Routes...
     ]);
-
 });
 Route::middleware('lang:ar')
     ->prefix('accounting')
@@ -25,6 +24,5 @@ Route::group(['prefix' => 'delivery_man'], function () {
 });
 //
 Route::name('printer')->prefix('accounting/printer')->group(function () {
-    Route::get('print_receipt/{sale}', '\App\Http\Controllers\App\Web\PrinterController@print_receipt');
+    Route::get('print_receipt/{invoice}', '\App\Http\Controllers\App\Web\PrinterController@print_receipt');
 });
-

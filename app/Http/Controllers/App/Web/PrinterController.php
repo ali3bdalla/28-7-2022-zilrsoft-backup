@@ -62,9 +62,9 @@ class PrinterController extends Controller
         return view('accounting.printer.printers');
     }
 
-    public function print_receipt(Invoice $sale)
+    public function print_receipt(Invoice $invoice)
     {
-        $invoice = $this->invoiceRepositoryContract->getInvoiceFullDetails($sale);
+        $invoice = $this->invoiceRepositoryContract->getInvoiceFullDetails($invoice);
         return view('accounting.printer.receipt', compact('invoice'));
     }
 
