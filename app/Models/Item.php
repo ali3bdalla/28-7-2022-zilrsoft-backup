@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\InvoiceTypeEnum;
 use App\Events\Item\ItemCreatedEvent;
 use App\Scopes\StoreItemScope;
 use App\Traits\OrganizationTarget;
@@ -158,7 +159,7 @@ class Item extends BaseModel
 
     public function pipeline(): HasMany
     {
-        return $this->hasMany(InvoiceItems::class, 'item_id')->orderBy('created_at');
+        return $this->hasMany(InvoiceItems::class, 'item_id')->whereNotIn('invoice_type', [InvoiceTypeEnum::warranty_tracing()])->orderBy('created_at');
     }
 
     public function category(): BelongsTo
@@ -236,8 +237,6 @@ class Item extends BaseModel
             'photo' => $this->photo,
             'model_number' => $this->modelNumber()
         ], $this->searhCategoryDetails(), $this->searchFilters());
-
-
     }
 
     public function tags(): HasMany
@@ -264,7 +263,8 @@ class Item extends BaseModel
         if ($this->category)
             return [
                 "category_name" => $this->category->description,
-                "category_ar_name" => $this->category->ar_description];
+                "category_ar_name" => $this->category->ar_description
+            ];
         return [];
     }
 
@@ -278,7 +278,6 @@ class Item extends BaseModel
         }
 
         return $filters;
-
     }
 
     public function isAvailableQuantityCanHandle(float $quantity): bool

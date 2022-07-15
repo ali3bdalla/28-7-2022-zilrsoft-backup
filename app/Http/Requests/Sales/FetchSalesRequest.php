@@ -179,7 +179,7 @@ class FetchSalesRequest extends FormRequest
         }
 
         if ($this->has('aliceName') && $this->filled('aliceName')) {
-            $query = $query->where('user_alice_name', 'ILIKE', '%'.$this->input('aliceName').'%');
+            $query = $query->where('user_alice_name', 'ILIKE', '%' . $this->input('aliceName') . '%');
         }
 
         if ($this->has('title') && $this->filled('title')) {
@@ -190,7 +190,7 @@ class FetchSalesRequest extends FormRequest
                 $number = $this->input('title');
             }
 
-            $query = $query->where('id', (float) $number)->orWhere('invoice_number', 'iLIKE', $number);
+            $query = $query->where('id', (float) $number)->orWhere('invoice_number', 'iLIKE', $number)->orWhere("contact_phone_number", "iLIKE", $number);
         }
 
         if ($this->has('net') && $this->filled('net')) {
@@ -273,28 +273,27 @@ class FetchSalesRequest extends FormRequest
             ]
         );
 
-        $page = (int)$this->input('page',1);
-        $perPage = (int)$this->input('itemsPerPage',50);
+        $page = (int)$this->input('page', 1);
+        $perPage = (int)$this->input('itemsPerPage', 50);
         $skip = ($page - 1) * $perPage;
         $totalItems = $query->count();
-        $data = $query->skip($skip)->take($perPage)->get()->map(function($row){
-            $row->net = round($row->net,2);
-            $row->total = round($row->total,2);
-            $row->subtotal = round($row->subtotal,2);
-            $row->tax = round($row->tax,2);
-            $row->discount = round($row->discount,2);
+        $data = $query->skip($skip)->take($perPage)->get()->map(function ($row) {
+            $row->net = round($row->net, 2);
+            $row->total = round($row->total, 2);
+            $row->subtotal = round($row->subtotal, 2);
+            $row->tax = round($row->tax, 2);
+            $row->discount = round($row->discount, 2);
             return $row;
         })->toArray();
-        return new LengthAwarePaginator($data,$totalItems, $perPage, $page);
-
+        return new LengthAwarePaginator($data, $totalItems, $perPage, $page);
     }
 
     public function getWarrantyTracingData()
     {
-        $perPage = (int)$this->input('itemsPerPage',50);
-        $query =  Invoice::where('invoice_type',InvoiceTypeEnum::warranty_tracing())->with("user","creator");
-        if($this->filled('invoice_number')) {
-            $query = $query->where('invoice_number',$this->input("invoice_number"));
+        $perPage = (int)$this->input('itemsPerPage', 50);
+        $query =  Invoice::where('invoice_type', InvoiceTypeEnum::warranty_tracing())->with("user", "creator");
+        if ($this->filled('invoice_number')) {
+            $query = $query->where('invoice_number', $this->input("invoice_number"));
         }
         if ($this->has('orderBy') && $this->filled('orderBy') && $this->has('orderType') && $this->filled('orderType')) {
             $query = $query->orderBy($this->orderBy, $this->orderType);

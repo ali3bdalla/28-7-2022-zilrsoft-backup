@@ -54,7 +54,7 @@ class StoreSaleRequest extends FormRequest
             "contact_phone_number" => [Rule::requiredIf(function () {
                 $user = User::find($this->input("client_id"));
                 return $user->is_system_user || $user->mobile == null;
-            }), "nullable", "string", "min:8"],
+            }), "nullable", "string", "min:8", "regex:/(9665)[0-9]{8}/"],
             'methods' => 'array',
             'methods.*.id' => 'required|integer|exists:accounts,id',
             'methods.*.amount' => 'required|numeric',
