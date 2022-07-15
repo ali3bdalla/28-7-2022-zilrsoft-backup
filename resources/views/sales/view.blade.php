@@ -100,14 +100,21 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="input-group">
                         <span id="vendors-list" class="input-group-addon">{{ trans('pages/invoice.salesman') }}</span>
                         <input type="text" name="" disabled="disabled"
                                class="form-control" value="{{ $invoice->manager->locale_name }}">
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <span id="vendors-list" class="input-group-addon">رقم الجوال</span>
+                        <input type="text" name="" disabled="disabled"
+                               class="form-control" value="{{ $invoice->contact_phone_number }}">
+                    </div>
+                </div>
+                <div class="col-md-4">
                     <div class="input-group">
                         <span id="vendors-list" class="input-group-addon">{{ trans('pages/invoice.department') }}</span>
                         <input type="text" name="" disabled="disabled"
